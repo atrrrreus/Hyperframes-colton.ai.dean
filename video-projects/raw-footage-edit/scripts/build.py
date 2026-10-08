@@ -4,7 +4,7 @@ from pathlib import Path
 # (source clip, in-point seconds, length seconds, transition INTO this shot)
 # transitions: "punch" = fast zoom-blur punch-in, "whip" = horizontal whip pan + whoosh
 CUTS = [
-    ("IMG_3117",   1.8, 1.5, None),     # clothes thrown across closet (hook)
+    ("IMG_3117",   2.1, 1.2, None),     # clothes thrown across closet (hook)
     ("IMG_3117_2", 3.0, 1.6, "punch"),  # turns to camera
     ("IMG_3117_2", 21.0, 1.2, "punch"), # tightening waistband, close
     ("IMG_3118",   0.0, 1.4, "whip"),   # POV walking out — chapter: outside
@@ -92,10 +92,10 @@ html = f"""<!doctype html>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{TOTAL}" data-width="1080" data-height="1920">
 {chr(10).join(videos)}
-      <div id="warm"></div>
-      <div id="vignette"></div>
-      <div id="flash"></div>
-      <div id="fade"></div>
+      <div id="warm" class="clip" data-start="0" data-duration="{TOTAL}" data-track-index="20"></div>
+      <div id="vignette" class="clip" data-start="0" data-duration="{TOTAL}" data-track-index="21"></div>
+      <div id="flash" class="clip" data-start="0" data-duration="{TOTAL}" data-track-index="22"></div>
+      <div id="fade" class="clip" data-start="0" data-duration="{TOTAL}" data-track-index="23"></div>
     </div>
     <audio id="music" src="assets/music.mp3" data-start="0" data-duration="{TOTAL}" data-media-start="{MUSIC_OFFSET}" data-track-index="9" data-volume="0.55"></audio>
 {chr(10).join(sfx)}
