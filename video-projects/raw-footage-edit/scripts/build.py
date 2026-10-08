@@ -42,6 +42,13 @@ for i, ((src, mi, d, tr), s) in enumerate(zip(CUTS, starts)):
     tweens.append(f'      tl.fromTo("#w{i}", {{ scale: 1.04 }}, {{ scale: 1.1, duration: {d}, ease: "none" }}, {s});')
     if tr == "punch":
         tweens.append(f'      tl.from("#x{i}", {{ scale: 1.18, filter: "blur(10px) brightness(1.25)", duration: 0.28, ease: "expo.out" }}, {s});')
+        # every cut gets a small sound (references: SFX sells the cut) — alternate snap / click
+        n_punch = sum(1 for c in CUTS[:i] if c[3] == "punch")
+        snd, dur = (("snap.mp3", 0.2), ("click.wav", 0.46))[n_punch % 2]
+        sfx.append(
+            f'    <audio id="sfx{i}" src="assets/{snd}" data-start="{round(s - 0.02, 3)}" data-duration="{dur}" '
+            f'data-track-index="{12 + n_punch % 2}" data-volume="0.35"></audio>'
+        )
     elif tr == "whip":
         prev = i - 1
         tweens.append(f'      tl.to("#x{prev}", {{ x: -420, filter: "blur(28px)", duration: 0.14, ease: "power3.in" }}, {round(s - 0.14, 3)});')
@@ -67,12 +74,16 @@ html = f"""<!doctype html>
       .shot, .fx {{ position: absolute; inset: 0; overflow: hidden; }}
       .shot video {{
         width: 100%; height: 100%; object-fit: cover; display: block;
-        /* light unifying grade: a touch more contrast + warmth */
-        filter: contrast(1.06) saturate(1.08) sepia(0.06);
+        /* warm grade (references: amber/brown, soft deep shadows) */
+        filter: contrast(1.1) saturate(1.12) sepia(0.18) brightness(0.98);
       }}
       #vignette {{
         position: absolute; inset: 0; pointer-events: none; z-index: 5;
         background: radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%);
+      }}
+      #warm {{
+        position: absolute; inset: 0; pointer-events: none; z-index: 4;
+        background: rgba(255, 150, 60, 0.12); mix-blend-mode: soft-light;
       }}
       #flash {{ position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; z-index: 6; }}
       #fade {{ position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; z-index: 7; }}
@@ -81,6 +92,7 @@ html = f"""<!doctype html>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{TOTAL}" data-width="1080" data-height="1920">
 {chr(10).join(videos)}
+      <div id="warm"></div>
       <div id="vignette"></div>
       <div id="flash"></div>
       <div id="fade"></div>
