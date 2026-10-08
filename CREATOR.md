@@ -1,7 +1,3 @@
-<!-- HYPERFRAMES_SETUP_INCOMPLETE -->
-<!-- ^ Leave this marker until /setup is complete. It tells Claude to greet a new user
-     and run onboarding before any video work. The setup skill removes it when finished. -->
-
 # Creator Profile
 
 Your identity, positioning, and workflow for video work in this workspace. **Read this before every video task** (alongside `PREFERENCES.md`). Use it for on-screen text, niche framing, and workflow assumptions.
@@ -40,11 +36,11 @@ Lifestyle/vlog footage, mostly real-world b-roll.
 
 ## Brand identity
 
-_(Colors, fonts, logo. Often a blank slate at the start — `assets/brand-tokens.css` fills in over time. Set initial values during /setup.)_
+Neutral defaults for now (dark bg, white text) in `assets/brand-tokens.css`. **No on-screen text yet** — the user will provide the narrative after seeing the first cuts.
 
 ## Inspiration creators
 
-_(Studied creators live in [`_reference/creator-library/`](_reference/creator-library/). Paste a TikTok / Instagram Reel / YouTube Short URL and run `/study-creator <url>` to add one. At build time, name a creator — "build this like @handle" — to apply their style fingerprint to the visual layer. /setup seeds your first few here.)_
+See [`_reference/creator-library/INDEX.md`](_reference/creator-library/INDEX.md) for the full list. Add new creators via `/study-creator <url>`. (First reference, https://www.instagram.com/p/DdrbHPwAOm9/, is pending: instagram.com is blocked by the environment network policy.)
 
 ## Posting cadence & length defaults
 
